@@ -15,6 +15,10 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post': post})
 
 
+def about(request):
+    return render(request, 'blog/about.html')
+
+
 @login_required
 def post_new(request):
     if request.method == "POST":
@@ -57,8 +61,6 @@ def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
     return redirect('post_detail', pk=pk)
-
-
 
 
 @login_required
