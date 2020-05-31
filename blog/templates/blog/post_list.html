@@ -4,9 +4,9 @@
         <div class="post">
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
             <div class="date">
-                <p>published: {{ post.published_date }}</p>
+                <p>{{ post.published_date }}</p>
             </div>
-            <img src="{{ post.postImg.url }}">
+            <p><img src="{{ post.postImg.url }}" class="img-fluid w-75"></p>
             <p>{{ post.text|linebreaksbr }}</p>
             <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
         </div>

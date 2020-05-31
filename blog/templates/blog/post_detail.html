@@ -2,9 +2,10 @@
 
 {% block content %}
     <div class="post">
+        <h2>{{ post.title }}</h2>
         {% if post.published_date %}
             <div class="date">
-                {{ post.published_date }}
+                <p>{{ post.published_date }}</p>
             </div>
         {% else %}
         <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
@@ -13,8 +14,8 @@
         <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="">edit</span></a>
         <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}"><span class="">delete</span></a>
         {% endif %}
-        <h2>{{ post.title }}</h2>
-        <img src="{{ post.postImg.url }}">
+
+        <p><img src="{{ post.postImg.url }}" class="img-fluid w-75"></p>
         <p>{{ post.text|linebreaksbr }}</p>
     </div>
     <hr>

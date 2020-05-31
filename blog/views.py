@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from .models import Post, Comment
-from .forms import PostForm, CommentForm
+from .models import Post, Comment, About
+from .forms import PostForm, CommentForm, AboutForm
 
 
 def post_list(request):
@@ -16,7 +16,23 @@ def post_detail(request, pk):
 
 
 def about(request):
-    return render(request, 'blog/about.html')
+    about_text = get_object_or_404(About)
+    return render(request, 'blog/about.html', {'about': about_text})
+
+
+@login_required
+def about_edit(request):
+    about = get_object_or_404(About)
+    if request.method == "POST":
+        form = AboutForm(request.POST, request.FILES, instance=about)
+        if form.is_valid():
+            about.delete()
+            about = form.save(commit=False)
+            about.save()
+            return redirect('about')
+    else:
+        form = AboutForm(instance=about)
+    return render(request, 'blog/about_edit.html', {'form': form})
 
 
 @login_required
