@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Post, Comment, About
+from .models import Post, Comment, About, Book
 
 
 class PostForm(forms.ModelForm):
@@ -19,3 +19,11 @@ class AboutForm(forms.ModelForm):
     class Meta:
         model = About
         fields = ('aboutText', 'aboutImages')
+
+
+class BookForm(forms.ModelForm):
+    myBoolField = forms.BooleanField(
+        label='Add to Bookshelf',
+        required=False,
+        initial=False
+    )

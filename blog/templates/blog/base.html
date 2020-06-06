@@ -13,10 +13,6 @@
 <body>
 <div class="page-header">
 
-
-
-
-
     {% if user.is_authenticated %}
 
     <div class="dropdown top-menu">
@@ -35,8 +31,8 @@
     {% else %}
     <a href="{% url 'login' %}" class="top-menu"><span class="">Login</span></a>
     {% endif %}
+    <a href="{% url 'bookshelf' %}" class="top-menu">Bookshelf</a>
     <a href="{% url 'about' %}" class="top-menu">About</a>
-
     <h1><a href="/">Thomas Woodfine-MacPherson</a></h1>
 </div>
 

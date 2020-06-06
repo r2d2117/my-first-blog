@@ -1,8 +1,12 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from django.contrib.auth.decorators import login_required
-from .models import Post, Comment, About
-from .forms import PostForm, CommentForm, AboutForm
+from blog.services import get_books_data
+from .forms import PostForm, CommentForm, AboutForm, BookForm
+from .models import Post, Comment, About, Book
+from django.template.defaulttags import register
+
+from pprint import pprint
 
 
 def post_list(request):
@@ -112,3 +116,30 @@ def comment_remove(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
     return redirect('post_detail', pk=comment.post.pk)
+
+
+def add_book_to_shelf(request):
+    submitbutton = request.POST.get("title.result", "")
+
+    print('here')
+    if request.method =='POST':
+        form = BookForm(request.POST)
+
+
+    context = {'submitbutton': submitbutton}
+
+    return render(request, 'bookshelf/book_list.html', context)
+
+
+def search(request):
+    query = request.GET.get('q', '')
+
+    if query:
+        books = get_books_data(query)
+        results = books['items']
+        # pprint(results[1], width=80)
+    else:
+        results = []
+        # print('here')
+
+    return render(request, 'bookshelf/book_list.html', {'results': results})
