@@ -38,9 +38,9 @@
                <div class="thumbnail bookimg"> <img class="img-responsive" src="{{ result.volumeInfo.imageLinks.smallThumbnail }}" alt=""> </div>
               {% endif %}
             </div>
-            <form action="{% url 'add_to_bookshelf' %}" method="post">
+            <form action="#" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <input type="submit" name="{{ result.volumeInfo }}" value="Add to Bookshelf">
+            <input type="submit" name="add_book_to_shelf" value="Add to Bookshelf" action="{% url 'add_book_to_shelf' %}">
             </form>
           </li>
         </ul>

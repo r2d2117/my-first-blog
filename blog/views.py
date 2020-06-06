@@ -119,16 +119,10 @@ def comment_remove(request, pk):
 
 
 def add_book_to_shelf(request):
-    submitbutton = request.POST.get("title.result", "")
-
-    print('here')
     if request.method =='POST':
-        form = BookForm(request.POST)
+        print('Here!')
 
-
-    context = {'submitbutton': submitbutton}
-
-    return render(request, 'bookshelf/book_list.html', context)
+    return render(request, 'bookshelf/book_list.html')
 
 
 def search(request):
