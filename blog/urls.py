@@ -14,6 +14,6 @@ urlpatterns = [
     path('comment/<int:pk>/remove/', views.comment_remove, name='comment_remove'),
     path('about/', views.about, name='about'),
     path('about/edit/', views.about_edit, name='about_edit'),
-    path('bookshelf/', views.search, name='bookshelf'),
-    path('bookshelf/', views.add_book_to_shelf, name='add_book_to_shelf')
+    path('bookshelf/<isbn>/delete/', views.delete_book, name='delete_book'),
+    path('bookshelf/', views.bookshelf, name='bookshelf')
 ]

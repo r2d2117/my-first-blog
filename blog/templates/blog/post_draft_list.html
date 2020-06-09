@@ -1,6 +1,11 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<div class="jumbotron bg-white">
+<div class="content container">
+
+    <div class="row">
+        <div class="col-md-8">
     {% for post in posts %}
         <div class="post">
             <p class="date">created: {{ post.created_date|date:'d-m-y' }}</p>
@@ -8,4 +13,8 @@
             <p>{{ post.text|truncatechars:200 }}</p>
         </div>
     {% endfor %}
+            </div>
+    </div>
+</div>
+</div>
 {% endblock %}

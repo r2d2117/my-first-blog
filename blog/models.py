@@ -32,38 +32,29 @@ def post_delete(sender, instance, **kwargs):
     instance.postImg.delete(False)
 
 
-class Publisher(models.Model):
-    name = models.CharField(max_length=30)
-    address = models.CharField(max_length=50)
-    city = models.CharField(max_length=60)
-    state_province = models.CharField(max_length=50)
-    country = models.CharField(max_length=50)
-    website = models.URLField()
-    cover_page = models.ImageField(blank=True, upload_to='cover_page/', default='cover_page/no-image.jpg')
-
-
-class Author(models.Model):
-    salutation = models.CharField(max_length=10)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=40)
-    email = models.EmailField()
-
 
 class Book(models.Model):
     title = models.CharField(max_length=100)
-    authors = models.ManyToManyField(Author)
-    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
+    isbn = models.IntegerField(unique=True)
+    authors = models.CharField(max_length=200)
+    publisher = models.CharField(max_length=200, blank=True)
     publication_date = models.DateField()
     num_pages = models.IntegerField(blank=True, null=True)
+    book_img = models.TextField(blank=True)
+    description = models.TextField(blank=True)
+    #about = models.ForeignKey('blog.About', on_delete=models.CASCADE, related_name='books')
 
     def __str__(self):
         return self.title
 
 
 class About(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, default='Thomas Woodfine-MacPherson', on_delete=models.CASCADE)
     aboutText = models.TextField()
     aboutImages = models.ImageField(blank=True, upload_to='aboutImages/', default='aboutImages/no-image.jpg')
     last_updated = models.DateTimeField(default=timezone.now)
+
+
 
     def publish(self):
         self.published_date = timezone.now()

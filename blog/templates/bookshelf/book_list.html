@@ -1,26 +1,52 @@
 {% extends 'blog/base.html' %}
 {% load static %}
-{% block content%}
 
+{% block content %}
+
+
+<div class="container-fluid mt-6 justify-content-center">
+    <div class="row m-5 justify-content-left">
+
+{% for book in books %}
+<div class="col-auto h-100 mb-4">
+  <div class="card" style="width: 18rem; height: 38rem">
+      <div class="card-body">
+        <div class="thumbnail bookimg" style="height: 12rem" > <img class="img-responsive" src="{{ book.book_img }}" alt=""> </div>
+        <h3 class="card-title" style="height: 4rem">{{ book.title|truncatechars:30  }}</h3>
+        <p class="card-text" style="height: 12rem">{{ book.description|truncatechars:200  }}</p>
+        <td><a class="btn btn-default" href="{% url 'delete_book' isbn=book.isbn %}"><span class="">delete</span></a></td>
+
+      </div>
+  </div>
+</div>
+{% endfor %}
+
+</div>
+</div>
+
+<div class="jumbotron">
   <h1>Search</h1>
-  <form action="." method="GET">
+  <form action="{% url 'bookshelf' %}" method="GET">
     <label for="q">Search: </label>
     <input type="text" name="q" value="{{ query|escape }}">
     <input type="submit" value="Search">
   </form>
+</div>
+
 <div class="jumbotron bg-white">
+<div class="row m-3 justify-content-left">
 {% for result in results %}
-      <div class="row mt-5 justify-content-center">
-      <div class="card card-custom mx-2 mb-3">
+
+      <div class="card card-custom m-3 h-100"  style="width: 50rem">
         <ul class="list-group shadow">
           <li class="list-group-item">
             <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-              <div class="media-body order-2 order-lg-2">
-                <h5 class="mt-0 font-weight-bold mb-2">{{ result.volumeInfo.title }}</h5>
-                <p class="font-italic text-muted mb-0 small">{{ result.searchInfo.textSnippet }}</p>
-                <p class="font-italic text-muted mb-0 small">Language: {{ result.language }}</p>
-                <p class="font-italic text-muted mb-0 small">Published date: {{ result.volumeInfo.publishedDate }}</p>
-                <div class="media-body order-2 order-lg-1">
+              <div class="media-body order-2 order-lg-2" style="height: 16rem">
+                <h4 class="mt-0 font-weight-bold mb-2" style="height: 3rem">{{ result.volumeInfo.title }}</h4>
+                <p class="font-italic text-muted mb-0 small" style="height: 5rem">{{ result.searchInfo.textSnippet }}</p>
+                <p class="font-italic text-muted mb-0 small" style="height: 1rem">Language: {{ result.language }}</p>
+                <p class="font-italic text-muted mb-0 small" style="height: 1rem">Published date: {{ result.volumeInfo.publishedDate }}</p>
+                <div class="media-body order-2 order-lg-1" style="height: 4rem">
                 {% if result.volumeInfo.authors %}
                 <h6 class="font-weight-bold my-2">Authors:</h6>
                 {% for author in result.volumeInfo.authors %}
@@ -28,25 +54,35 @@
                 {% endfor %}
                 {% endif %}
                 </div>
-                {% if result.pageCount %}
+                {% if result.volumeInfo.pageCount %}
                 <div class="d-flex align-items-center justify-content-between mt-1">
-                  <h6 class="font-weight-bold my-2">Number of pages: {{ result.pageCount }}</h6>
+                  <h6 class="font-weight-bold my-2">Number of pages: {{ result.volumeInfo.pageCount }}</h6>
                 </div>
                 {% endif %}
               </div>
               {% if result.volumeInfo.imageLinks %}
-               <div class="thumbnail bookimg"> <img class="img-responsive" src="{{ result.volumeInfo.imageLinks.smallThumbnail }}" alt=""> </div>
+               <div class="thumbnail bookimg" style="height: 9rem"> <img class="img-responsive" src="{{ result.volumeInfo.imageLinks.smallThumbnail }}" alt=""> </div>
               {% endif %}
             </div>
-            <form action="#" method="post" enctype="multipart/form-data">
+            <form action="{% url 'bookshelf' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <input type="submit" name="add_book_to_shelf" value="Add to Bookshelf" action="{% url 'add_book_to_shelf' %}">
+            <input type="hidden" name="title" value="{{ result.volumeInfo.title }}">
+            <input type="hidden" name="pagecount" value="{{ result.volumeInfo.pageCount }}">
+            <input type="hidden" name="textSnippet" value="{{ result.searchInfo.textSnippet }}">
+            <input type="hidden" name="isbn" value="{{ result.volumeInfo.industryIdentifiers }}">
+            <input type="hidden" name="authors" value="{{ result.volumeInfo.authors }}">
+            <input type="hidden" name="language" value="{{ result.language }}">
+            <input type="hidden" name="publication_date" value="{{ result.volumeInfo.publishedDate }}">
+            <input type="hidden" name="img" value="{{ result.volumeInfo.imageLinks.smallThumbnail }}">
+            <input type="hidden" name="big_info" value="{{ result }}">
+            <input type="submit" name="add_book_to_shelf" value="Add to Bookshelf">
             </form>
           </li>
         </ul>
       </div>
-    </div>
-    {% endfor %}
-</div>
-{% endblock content %}
 
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

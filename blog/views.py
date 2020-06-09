@@ -5,6 +5,9 @@ from blog.services import get_books_data
 from .forms import PostForm, CommentForm, AboutForm, BookForm
 from .models import Post, Comment, About, Book
 from django.template.defaulttags import register
+from django.http import HttpResponse, HttpResponseRedirect
+import datetime
+import ast
 
 from pprint import pprint
 
@@ -118,22 +121,59 @@ def comment_remove(request, pk):
     return redirect('post_detail', pk=comment.post.pk)
 
 
-def add_book_to_shelf(request):
-    if request.method =='POST':
-        print('Here!')
+# def books(request, isbn):
+#     books = get_object_or_404(Book, isbn=isbn)
+#     return render(request, 'blog/bookshelf.html', {'books': books})
 
-    return render(request, 'bookshelf/book_list.html')
+def bookshelf(request):
+    if request.method == 'POST':
+        return add_book_to_shelf(request)
+    else:
+        return search(request)
+
+@login_required()
+def add_book_to_shelf(request):
+    r = request.POST.dict()
+
+    tt = ast.literal_eval(r['isbn'])
+
+    book = Book()
+    both_isbn = {}
+    for item in tt:
+        pair = {item['type']: item['identifier']}
+        both_isbn.update(pair)
+    # print(both_isbn)
+
+    if 'ISBN_13' in both_isbn:
+        book.isbn = both_isbn['ISBN_13']
+    else:
+        book.isbn = both_isbn['ISBN_10']
+
+    book.title = r['title']
+    book.num_pages = r['pagecount']
+    book.description = r['textSnippet']
+    book.publication_date = r['publication_date']
+    book.book_img = r['img']
+    book.authors = r['authors']
+    book.save()
+    return redirect('bookshelf')
+
+@login_required()
+def delete_book(request, isbn):
+    book = Book.objects.get(isbn=int(isbn))
+    book.delete()
+    return redirect('bookshelf')
 
 
 def search(request):
     query = request.GET.get('q', '')
-
+    my_books = Book.objects.all()
     if query:
         books = get_books_data(query)
         results = books['items']
-        # pprint(results[1], width=80)
+        pprint(results[1], width=80)
     else:
         results = []
         # print('here')
 
-    return render(request, 'bookshelf/book_list.html', {'results': results})
+    return render(request, 'bookshelf/book_list.html', {'results': results, 'books': my_books})
