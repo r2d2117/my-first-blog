@@ -1,26 +1,33 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+
 <div class="jumbotron bg-white">
 <div class="content container">
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-10">
+            {% if about.aboutText %}
+            <div class="post">
+                <div class="post-inner">
+                    <div class="post-header">
 
-
-        <div class="post">
-        {% if about.aboutText %}
-        <h2>Bio</h2></h1>
+                <h2 class="post-title">Bio</h2>
+                        <div class="post-meta">
+                        </div>
             {% if about.aboutImages %}
-            <p><img src="{{ about.aboutImages.url }}" class="img-fluid w-75"></p>
+            <p><img src="{{ about.aboutImages.url }}" class="img-fluid w-100"></p>
             {% endif %}
         <p>{{ about.aboutText }}</p>
         </div>
         {% else %}
         <h1> Nothing here yet! </h1>
         {% endif %}
+             </div>
+
+
 </div>
-    </div>
+</div>
 </div>
 </div>
 

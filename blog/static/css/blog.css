@@ -1,14 +1,39 @@
 .page-header {
     background-color: #006400;
     margin-top: 0;
-    padding: 20px 20px 20px 50px;
+    padding: 1rem 10rem 1rem 10rem;
 }
-
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
     color: #ffffff;
     font-size: 28pt;
     text-decoration: none;
+    padding
+}
+
+.TGN_MainMenu_Grouping {
+    border-bottom: 1px solid #ccc;
+    padding: 24px;
+    padding-bottom: 13px;
+}
+.MainMenu_Holder{
+    margin-bottom: 11px;
+    font-color: black !important;
+}
+#TGN_MainMenu_Holder {
+    font-family: 'HelveticaNeueW01-45Ligh','neue-haas-unica', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 18px;
+    color: black !important;
+    padding: 0px;
+    height: 0px;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: 269px;
+    display: none;
+    z-index: 101;
 }
 
 .content {
@@ -35,12 +60,81 @@ h1, h2, h3, h4 {
     font-size: 20pt;
     margin-right: 20px;
 }
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: 400;
+    font-family: inherit;
+    text-align: left;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 100%;
+    line-height: 1;
+}
+
 
 .post {
     margin-bottom: 70px;
-    margin-top: 20px
+
+    margin: auto;
+    display: block;
+    background: #fff;
+    border: 1px solid #ddd;
+    position: relative;
 }
 
+.header-image {
+    height: 3rem;
+}
+
+
+
+
+.post-title {
+    font-family: Arial Black, Gadget, sans-serif;
+    font-size: 2.6em;
+    line-height: 130%;
+    font-weight: 700;
+    color: #111;
+}
+.post-inner {
+    width: 629px;
+    max-width: 85%;
+    padding: 30px 0;
+    margin: 0 auto;
+}
+.post-meta {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+.post-content p, .post-content blockquote, .post-content ul, .post-content ol, .post-content address, .post-content dl, .post-content pre {
+    line-height: 170%;
+    margin-bottom: 1.5em;
+}
+.post-content {
+    font-family: source-serif-pro, 'Source Serif Pro', 'LyonDisplay-Medium', serif;
+    font-size: 1.20em;
+}
+.TGN_site_ArticleItemdescription {
+    color: #404040;
+    font-family: 'HelveticaNeueW01-45Ligh','neue-haas-unica', sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    overflow-wrap: break-word;
+}
+
+.post-header, .post-content {
+    margin-top: 50px;
+}
+.page-itself{
+    margin-left: 5rem;
+    margin-right: 5rem;
+
+}
 .post h2 a, .post h2 a:visited {
     color: #000000;
 }
@@ -48,7 +142,35 @@ h1, h2, h3, h4 {
 .comment {
     margin: 20px 0px 20px 20px;
 }
-
-.bookimg {
-    margin: 20px 20px 20px 0px;
+.row {
+  display: flex;
+  flex-wrap: wrap;
 }
+
+.side {
+  flex: 30%;
+
+  padding: 20px;
+}
+.main {
+  flex: 70%;
+  padding: 20px;
+}
+
+.book-img {
+    text-align:center;
+    display: block;
+    margin: 25px;
+}
+
+.login {
+    position: relative;
+    z-index: 1;
+    background: #ffffff;
+    width: 350px;
+    margin: auto;
+    padding: 20px 20px 20px 30px;
+    border-radius: 4px;
+}
+
+

@@ -14,7 +14,7 @@ class Post(models.Model):
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
-    postImg = models.ImageField(blank=True, upload_to='images/', default='images/no-image.jpg')
+    postImg = models.ImageField(blank=True, upload_to='images/', null=True)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -32,17 +32,15 @@ def post_delete(sender, instance, **kwargs):
     instance.postImg.delete(False)
 
 
-
 class Book(models.Model):
     title = models.CharField(max_length=100)
     isbn = models.IntegerField(unique=True)
     authors = models.CharField(max_length=200)
     publisher = models.CharField(max_length=200, blank=True)
-    publication_date = models.DateField()
+    publication_date = models.CharField(max_length=12, blank=True, null=True)
     num_pages = models.IntegerField(blank=True, null=True)
     book_img = models.TextField(blank=True)
     description = models.TextField(blank=True)
-    #about = models.ForeignKey('blog.About', on_delete=models.CASCADE, related_name='books')
 
     def __str__(self):
         return self.title
@@ -51,10 +49,8 @@ class Book(models.Model):
 class About(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, default='Thomas Woodfine-MacPherson', on_delete=models.CASCADE)
     aboutText = models.TextField()
-    aboutImages = models.ImageField(blank=True, upload_to='aboutImages/', default='aboutImages/no-image.jpg')
+    aboutImages = models.ImageField(blank=True, upload_to='aboutImages/', null=True)
     last_updated = models.DateTimeField(default=timezone.now)
-
-
 
     def publish(self):
         self.published_date = timezone.now()

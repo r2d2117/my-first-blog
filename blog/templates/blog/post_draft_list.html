@@ -5,13 +5,19 @@
 <div class="content container">
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-10">
     {% for post in posts %}
         <div class="post">
+             <div class="post-inner">
+                <div class="post-header">
+                    <h2 class="post-title"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                <div class="post-meta">
             <p class="date">created: {{ post.created_date|date:'d-m-y' }}</p>
-            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|truncatechars:200 }}</p>
+                </div>
+
+            <p>{{ post.text|truncatechars:400 }}</p>
         </div>
+             </div>
     {% endfor %}
             </div>
     </div>

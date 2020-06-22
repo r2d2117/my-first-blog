@@ -2,18 +2,21 @@
 {% load static %}
 
 {% block content %}
+<div class="page-itself">
 
+<div class="jumbotron bg-white">
 
-<div class="container-fluid mt-6 justify-content-center">
-    <div class="row m-5 justify-content-left">
+    <div class="row m-10 h-100">
 
 {% for book in books %}
 <div class="col-auto h-100 mb-4">
-  <div class="card" style="width: 18rem; height: 38rem">
+  <div class="card" style="width: 18rem; height: 34rem">
       <div class="card-body">
-        <div class="thumbnail bookimg" style="height: 12rem" > <img class="img-responsive" src="{{ book.book_img }}" alt=""> </div>
-        <h3 class="card-title" style="height: 4rem">{{ book.title|truncatechars:30  }}</h3>
-        <p class="card-text" style="height: 12rem">{{ book.description|truncatechars:200  }}</p>
+        <div class="book-img" style="height: 12rem;" > <img class="" src="{{ book.book_img }}" alt=""> </div>
+        <h3 class="card-title" style="height: 4rem">{{ book.title|truncatechars:25  }}</h3>
+        <div class=".TGN_site_ArticleItemdescription" style="height: 10rem">
+        {{ book.description|truncatechars:150  }}
+        </div>
         <td><a class="btn btn-default" href="{% url 'delete_book' isbn=book.isbn %}"><span class="">delete</span></a></td>
 
       </div>
@@ -21,10 +24,11 @@
 </div>
 {% endfor %}
 
+    </div>
 </div>
 </div>
-
 <div class="jumbotron">
+  <div class="page-itself">
   <h1>Search</h1>
   <form action="{% url 'bookshelf' %}" method="GET">
     <label for="q">Search: </label>
@@ -32,8 +36,9 @@
     <input type="submit" value="Search">
   </form>
 </div>
+</div>
 
-<div class="jumbotron bg-white">
+<div class="page-itself">
 <div class="row m-3 justify-content-left">
 {% for result in results %}
 
@@ -73,7 +78,7 @@
             <input type="hidden" name="authors" value="{{ result.volumeInfo.authors }}">
             <input type="hidden" name="language" value="{{ result.language }}">
             <input type="hidden" name="publication_date" value="{{ result.volumeInfo.publishedDate }}">
-            <input type="hidden" name="img" value="{{ result.volumeInfo.imageLinks.smallThumbnail }}">
+            <input type="hidden" name="img" value="{{ result.volumeInfo.imageLinks.thumbnail }}">
             <input type="hidden" name="big_info" value="{{ result }}">
             <input type="submit" name="add_book_to_shelf" value="Add to Bookshelf">
             </form>
@@ -84,5 +89,5 @@
     {% endfor %}
   </div>
 </div>
-
+</div>
 {% endblock %}

@@ -121,10 +121,6 @@ def comment_remove(request, pk):
     return redirect('post_detail', pk=comment.post.pk)
 
 
-# def books(request, isbn):
-#     books = get_object_or_404(Book, isbn=isbn)
-#     return render(request, 'blog/bookshelf.html', {'books': books})
-
 def bookshelf(request):
     if request.method == 'POST':
         return add_book_to_shelf(request)
@@ -134,7 +130,7 @@ def bookshelf(request):
 @login_required()
 def add_book_to_shelf(request):
     r = request.POST.dict()
-
+    print(r)
     tt = ast.literal_eval(r['isbn'])
 
     book = Book()
@@ -152,6 +148,7 @@ def add_book_to_shelf(request):
     book.title = r['title']
     book.num_pages = r['pagecount']
     book.description = r['textSnippet']
+
     book.publication_date = r['publication_date']
     book.book_img = r['img']
     book.authors = r['authors']

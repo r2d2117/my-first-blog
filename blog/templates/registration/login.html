@@ -1,6 +1,7 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
+    <div class="login">
     {% if form.errors %}
         <p>Username and Password did not match</p>
     {% endif %}
@@ -21,4 +22,5 @@
             <input type="submit" value="login" />
             <input type="hidden" name="next" value="{{ next }}" />
     </form>
+    </div>
 {% endblock %}
